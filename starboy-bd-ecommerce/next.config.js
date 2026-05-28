@@ -2,13 +2,18 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "firebasestorage.googleapis.com" },
-      { protocol: "https", hostname: "*.supabase.co" },
-      { protocol: "https", hostname: "*.supabase.in" },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
     ],
     unoptimized: false,
   },
+
   experimental: {
     scrollRestoration: true,
   },
