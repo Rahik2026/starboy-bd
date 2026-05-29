@@ -43,7 +43,7 @@ export default function AuthPage() {
             {!isLogin && <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Full Name" required className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />}
             {!isLogin && <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number" required className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />}
             {!isLogin && <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email (optional)" className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />}
-            <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder={isLogin ? "Phone or Email" : "Phone Number"} required className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />
+            {isLogin && <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder="Phone or Email" required className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />}
             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required className="w-full px-4 py-3 bg-ink-50 border border-ink-200 rounded-xl text-sm outline-none focus:border-brand-500 transition-colors" />
             <button type="submit" disabled={loading} className="w-full py-3.5 bg-ink-950 hover:bg-brand-700 text-brand-300 hover:text-white text-sm font-bold rounded-xl transition-colors disabled:opacity-60">
               {loading ? "Processing..." : isLogin ? "Sign In" : "Create Account"}
@@ -57,4 +57,5 @@ export default function AuthPage() {
       </div>
     </div>
   );
-}
+            }
+
