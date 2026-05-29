@@ -1,4 +1,19 @@
 import { collection, getDocs, deleteDoc, doc, setDoc } from "firebase/firestore";
+
+// Firestore rejects `undefined` field values. Remove any undefined fields from a
+// payload before writing (e.g. demo products with no offerPrice).
+function stripUndefined<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((v) => stripUndefined(v)) as unknown as T;
+  if (value && typeof value === "object" && !(value instanceof Date)) {
+    const out: any = {};
+    for (const [k, v] of Object.entries(value as Record<string, any>)) {
+      if (v === undefined) continue;
+      out[k] = stripUndefined(v);
+    }
+    return out;
+  }
+  return value;
+}
 import { db } from "@/lib/firebase";
 
 export const demoProducts = [
@@ -43,7 +58,6 @@ export const demoProducts = [
     fullDescription: "Handcrafted from full-grain Italian leather with a brushed nickel buckle. Ages beautifully with wear, developing a rich patina over time.",
     images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80"],
     originalPrice: 1800,
-    offerPrice: undefined,
     categories: [],
     tags: ["belt", "leather", "accessory"],
     availability: "in_stock",
@@ -148,7 +162,7 @@ async function seedCollection(colName: string, data: any[], keyField: string | n
   if (!db) return;
   for (const item of data) {
     const id = keyField ? item[keyField] : `${colName}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-    await setDoc(doc(db, colName, id), { ...item, createdAt: item.createdAt || new Date().toISOString() });
+    await setDoc(doc(db, colName, id), stripUndefined({ ...item, createdAt: item.createdAt || new Date().toISOString() }));
   }
 }
 
@@ -165,7 +179,7 @@ export async function initializeFirebaseDatabase() {
   // Products get random IDs since they have no unique key
   for (const p of demoProducts) {
     const id = `product-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-    await setDoc(doc(db, "products", id), { ...p, createdAt: new Date().toISOString() });
+    await setDoc(doc(db, "products", id), stripUndefined({ ...p, createdAt: new Date().toISOString() }));
   }
   console.log("Database initialized with demo data.");
 }
@@ -177,4 +191,4 @@ export async function resetFirebaseDatabase() {
     await clearCollection(col);
   }
   console.log("Database reset complete.");
-}
+    }
