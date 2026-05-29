@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Instagram, Facebook, Youtube, MapPin, CreditCard, Truck, ShieldCheck, Mail } from "lucide-react";
+import { Instagram, Facebook, Youtube, MapPin, Mail } from "lucide-react";
 import { firebaseData } from "@/lib/firebaseData";
 import Image from "next/image";
+
+const MAP_URL = "https://maps.app.goo.gl/H11PhX67GndtaQXQ6";
 
 export default function Footer() {
   const [settings, setSettings] = useState<Record<string, string>>({});
@@ -24,10 +26,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pb-12 border-b border-[#3a2e0f]">
           <div>
             <h3 className="font-display text-2xl md:text-3xl text-brand-300 mb-2">{outletText}</h3>
-            <div className="flex items-start gap-2 text-sm text-ink-400 mt-3">
+            <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-2 text-sm text-ink-400 mt-3 hover:text-brand-300 transition-colors">
               <MapPin className="w-4 h-4 text-brand-400 mt-0.5 shrink-0" />
-              <span className="text-[#C9A96E]/80">{outletLoc}</span>
-            </div>
+              <span className="text-[#C9A96E]/80 hover:text-brand-300 transition-colors">{outletLoc}</span>
+            </a>
           </div>
           <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
             <div className="relative flex-1">
@@ -67,14 +69,16 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Payment Methods</h4>
-            <div className="flex flex-wrap gap-2">
-              {[1, 2, 3, 4].map((i) => (<div key={i} className="w-10 h-6 bg-[#2a2310] rounded flex items-center justify-center text-[8px] text-ink-500"><CreditCard className="w-3.5 h-3.5" /></div>))}
-            </div>
-            <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs text-ink-400"><Truck className="w-3.5 h-3.5 text-brand-600" /> Fast Delivery Across BD</div>
-              <div className="flex items-center gap-2 text-xs text-ink-400"><ShieldCheck className="w-3.5 h-3.5 text-brand-600" /> 100% Secure Payments</div>
-            </div>
+            <h4 className="text-sm font-semibold text-white mb-4">Visit Us</h4>
+            <a href={MAP_URL} target="_blank" rel="noopener noreferrer" className="group block rounded-xl overflow-hidden border border-[#3a2e0f] bg-[#2a2310] hover:border-brand-600 transition-colors">
+              <div className="flex items-center gap-2 p-3">
+                <MapPin className="w-4 h-4 text-brand-400 shrink-0" />
+                <span className="text-xs text-ink-400 group-hover:text-brand-300 transition-colors">{outletLoc}</span>
+              </div>
+              <div className="px-3 pb-3">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-300 group-hover:underline">Open in Google Maps →</span>
+              </div>
+            </a>
           </div>
         </div>
         <div className="mt-12 pt-6 border-t border-[#3a2e0f] flex flex-col md:flex-row items-center justify-between gap-3">
@@ -88,4 +92,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+      }
