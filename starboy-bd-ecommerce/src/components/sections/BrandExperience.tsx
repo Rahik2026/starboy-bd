@@ -7,6 +7,7 @@ import { MapPin, Camera, Shirt, Facebook } from "lucide-react";
 import { firebaseData } from "@/lib/firebaseData";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61588892652192";
+const MAP_URL = "https://maps.app.goo.gl/H11PhX67GndtaQXQ6";
 
 function getSetting(settings: Record<string, string>, key: string, fallback: string) {
   const value = settings[key];
@@ -15,9 +16,9 @@ function getSetting(settings: Record<string, string>, key: string, fallback: str
 }
 
 const defaultExperiences = [
-  { icon: MapPin, titleKey: "brand_card_1_title", subtitleKey: "brand_card_1_subtitle", imageKey: "brand_card_1_image", ctaKey: "brand_card_1_cta", title: "Visit Our Flagship Store", subtitle: "Experience the brand in person at our Dhaka location.", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop", cta: "Get Directions" },
-  { icon: Camera, titleKey: "brand_card_2_title", subtitleKey: "brand_card_2_subtitle", imageKey: "brand_card_2_image", ctaKey: "brand_card_2_cta", title: "Behind The Scenes", subtitle: "See how we craft each collection with precision and care.", image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop", cta: "Watch Video" },
-  { icon: Shirt, titleKey: "brand_card_3_title", subtitleKey: "brand_card_3_subtitle", imageKey: "brand_card_3_image", ctaKey: "brand_card_3_cta", title: "Shop The Look", subtitle: "Curated outfit combinations styled by our in-house team.", image: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?q=80&w=800&auto=format&fit=crop", cta: "Explore Looks" },
+  { icon: MapPin, titleKey: "brand_card_1_title", subtitleKey: "brand_card_1_subtitle", imageKey: "brand_card_1_image", ctaKey: "brand_card_1_cta", title: "Visit Our Flagship Store", subtitle: "Experience the brand in person at our Dhaka location.", image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop", cta: "Get Directions", href: MAP_URL },
+  { icon: Camera, titleKey: "brand_card_2_title", subtitleKey: "brand_card_2_subtitle", imageKey: "brand_card_2_image", ctaKey: "brand_card_2_cta", title: "Behind The Scenes", subtitle: "See how we craft each collection with precision and care.", image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop", cta: "Watch Video", href: undefined as string | undefined },
+  { icon: Shirt, titleKey: "brand_card_3_title", subtitleKey: "brand_card_3_subtitle", imageKey: "brand_card_3_image", ctaKey: "brand_card_3_cta", title: "Shop The Look", subtitle: "Curated outfit combinations styled by our in-house team.", image: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?q=80&w=800&auto=format&fit=crop", cta: "Explore Looks", href: undefined as string | undefined },
 ];
 
 export default function BrandExperience() {
@@ -62,8 +63,11 @@ export default function BrandExperience() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-          {experiences.map((exp, i) => (
-            <div key={exp.titleKey} className="group relative rounded-2xl overflow-hidden bg-ink-900 border border-ink-800 animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+          {experiences.map((exp, i) => {
+            const CardTag: any = exp.href ? "a" : "div";
+            const linkProps = exp.href ? { href: exp.href, target: "_blank", rel: "noopener noreferrer" } : {};
+            return (
+            <CardTag key={exp.titleKey} {...linkProps} className="group relative block rounded-2xl overflow-hidden bg-ink-900 border border-ink-800 animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
               <div className="relative aspect-[4/3]">
                 <Image src={exp.image} alt={exp.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-60 group-hover:opacity-80" sizes="(max-width: 768px) 100vw, 33vw" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
@@ -76,10 +80,11 @@ export default function BrandExperience() {
                 <h3 className="text-white font-display text-lg md:text-xl font-semibold mb-1">{exp.title}</h3>
                 <p className="text-ink-400 text-xs md:text-sm">{exp.subtitle}</p>
               </div>
-            </div>
-          ))}
+            </CardTag>
+            );
+          })}
         </div>
       </div>
     </section>
   );
-}
+    }
