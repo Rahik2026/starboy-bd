@@ -15,8 +15,8 @@ function getSetting(settings: Record<string, string>, key: string, fallback: str
 }
 
 const defaultExperiences = [
-  { icon: MapPin, titleKey: "brand_card_1_title", subtitleKey: "brand_card_1_subtitle", imageKey: "brand_card_1_image", ctaKey: "brand_card_1_cta", title: "Visit Our Flagship Store", subtitle: "Experience the brand in person at our Dhaka location.", image: "https://i.postimg.cc/YqdQcFvk/7c1312d72dfe4825b1da3d931064957f.webp", cta: "Get Directions", href: MAP_URL },
-  { icon: Camera, titleKey: "brand_card_2_title", subtitleKey: "brand_card_2_subtitle", imageKey: "brand_card_2_image", ctaKey: "brand_card_2_cta", title: "Behind The Scenes", subtitle: "See how we craft each collection with precision and care.", image: "https://i.postimg.cc/bvtn2F3c/656321089.webp", cta: "Watch Video", href: undefined as string | undefined },
+  { icon: MapPin, titleKey: "brand_card_1_title", subtitleKey: "brand_card_1_subtitle", imageKey: "brand_card_1_image", ctaKey: "brand_card_1_cta", title: "Visit Our Flagship Store", subtitle: "Experience the brand in person in your town.", image: "https://i.postimg.cc/YqdQcFvk/7c1312d72dfe4825b1da3d931064957f.webp", cta: "Get Directions", href: MAP_URL },
+  { icon: Camera, titleKey: "brand_card_2_title", subtitleKey: "brand_card_2_subtitle", imageKey: "brand_card_2_image", ctaKey: "brand_card_2_cta", title: "Behind The Scenes", subtitle: "See how we craft each collection with precision and care.", image: "https://i.postimg.cc/bvtn2F3c/656321089.webp", cta: "Watch Video on our FB page", href: undefined as string | undefined },
   { icon: Shirt, titleKey: "brand_card_3_title", subtitleKey: "brand_card_3_subtitle", imageKey: "brand_card_3_image", ctaKey: "brand_card_3_cta", title: "Shop The Look", subtitle: "Curated outfit combinations styled by our in-house team.", image: "https://i.postimg.cc/mDWH3N5c/1779873061510.webp", cta: "Explore Looks", href: undefined as string | undefined },
 ];
 
