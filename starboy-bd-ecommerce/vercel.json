@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd starboy-bd-ecommerce && npm run build",
-  "installCommand": "cd starboy-bd-ecommerce && npm install"
-}
